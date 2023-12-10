@@ -59,6 +59,7 @@ import org.apache.spark.sql.internal.SQLConf;
 import org.apache.spark.sql.types.StructType;
 import org.apache.spark.sql.types.StructType$;
 import org.apache.spark.util.AccumulatorV2;
+import scala.collection.mutable.Buffer;
 
 /**
  * Base class for custom RecordReaders for Parquet that directly materialize to `T`.
@@ -140,7 +141,8 @@ public abstract class SpecificParquetRecordReaderBase<T> extends RecordReader<Vo
     // in test case.
     TaskContext taskContext = TaskContext$.MODULE$.get();
     if (taskContext != null) {
-      Option<AccumulatorV2<?, ?>> accu = taskContext.taskMetrics().externalAccums().lastOption();
+      Buffer<AccumulatorV2<?, ?>> buffer = taskContext.taskMetrics().externalAccums();
+      Option<AccumulatorV2<?, ?>> accu = buffer.toList().lastOption();
       if (accu.isDefined() && accu.get().getClass().getSimpleName().equals("NumRowGroupsAcc")) {
         @SuppressWarnings("unchecked")
         AccumulatorV2<Integer, Integer> intAccum = (AccumulatorV2<Integer, Integer>) accu.get();

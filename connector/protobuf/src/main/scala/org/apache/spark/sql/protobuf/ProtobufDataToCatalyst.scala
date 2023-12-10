@@ -40,6 +40,7 @@ private[sql] case class ProtobufDataToCatalyst(
   override def inputTypes: Seq[AbstractDataType] = Seq(BinaryType)
 
   override lazy val dataType: DataType = {
+    // 类型转换为sql类型
     val dt = SchemaConverters.toSqlType(messageDescriptor, protobufOptions).dataType
     parseMode match {
       // With PermissiveMode, the output Catalyst row might contain columns of null values for
@@ -114,6 +115,7 @@ private[sql] case class ProtobufDataToCatalyst(
     val binary = input.asInstanceOf[Array[Byte]]
     try {
       result = DynamicMessage.parseFrom(messageDescriptor, binary)
+      // 如果Java类可用，那么使用它进行解析可能比使用DynamicMessage更高效。如果解析开销明显，可以在将来考虑它
       // If the Java class is available, it is likely more efficient to parse with it than using
       // DynamicMessage. Can consider it in the future if parsing overhead is noticeable.
 

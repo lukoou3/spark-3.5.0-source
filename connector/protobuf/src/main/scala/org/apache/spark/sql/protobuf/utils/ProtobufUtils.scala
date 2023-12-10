@@ -140,6 +140,7 @@ private[sql] object ProtobufUtils extends Logging {
   }
 
   /**
+   * build Protobuf Descriptor从java类或者desc文件字节数组
    * Builds Protobuf message descriptor either from the Java class or from serialized descriptor
    * read from the file.
    * @param messageName
@@ -240,6 +241,7 @@ private[sql] object ProtobufUtils extends Logging {
     }
   }
 
+  // aa
   private def parseFileDescriptorSet(bytes: Array[Byte]): List[Descriptors.FileDescriptor] = {
     var fileDescriptorSet: DescriptorProtos.FileDescriptorSet = null
     try {

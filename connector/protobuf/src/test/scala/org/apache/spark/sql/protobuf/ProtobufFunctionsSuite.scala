@@ -40,11 +40,11 @@ class ProtobufFunctionsSuite extends QueryTest with SharedSparkSession with Prot
 
   import testImplicits._
 
-  val testFileDescFile = protobufDescriptorFile("functions_suite.desc")
+  val testFileDescFile = "connector\\protobuf\\src\\test\\resources\\protobuf\\functions_suite.desc" // protobufDescriptorFile("functions_suite.desc")
   private val testFileDesc = ProtobufUtils.readDescriptorFileContent(testFileDescFile)
   private val javaClassNamePrefix = "org.apache.spark.sql.protobuf.protos.SimpleMessageProtos$"
 
-  val proto2FileDescFile = protobufDescriptorFile("proto2_messages.desc")
+  val proto2FileDescFile = "connector\\protobuf\\src\\test\\resources\\protobuf\\proto2_messages.desc" // protobufDescriptorFile("proto2_messages.desc")
   val proto2FileDesc = ProtobufUtils.readDescriptorFileContent(proto2FileDescFile)
   private val proto2JavaClassNamePrefix = "org.apache.spark.sql.protobuf.protos.Proto2Messages$"
 

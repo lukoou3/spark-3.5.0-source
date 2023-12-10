@@ -45,7 +45,7 @@ public class Expressions {
    */
   public static Transform apply(String name, Expression... args) {
     return LogicalExpressions.apply(name,
-        JavaConverters.asScalaBuffer(Arrays.asList(args)).toSeq());
+        JavaConverters.asScalaBuffer(Arrays.asList(args)).toBuffer());
   }
 
   /**
