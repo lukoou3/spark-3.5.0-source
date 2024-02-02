@@ -64,7 +64,7 @@ object SchemaConverters extends Logging {
   // should be dropped.
   def structFieldFor(
       fd: FieldDescriptor,
-      existingRecordNames: Map[String, Int],
+      existingRecordNames: Map[String, Int], // 用于跟踪递归字段的深度
       protobufOptions: ProtobufOptions): Option[StructField] = {
     import com.google.protobuf.Descriptors.FieldDescriptor.JavaType._
     val dataType = fd.getJavaType match {
